@@ -798,10 +798,10 @@ static int eth_initialize(const struct device *dev)
 		(clock_control_subsys_t *)&cfg->pclken_tx);
 	ret |= clock_control_on(dev_data->clock,
 		(clock_control_subsys_t *)&cfg->pclken_rx);
-#if !defined(CONFIG_SOC_SERIES_STM32H7X)
+#if !defined(CONFIG_SOC_SERIES_STM32H7X) && !defined(CONFIG_SOC_SERIES_STM32F1X)
 	ret |= clock_control_on(dev_data->clock,
 		(clock_control_subsys_t *)&cfg->pclken_ptp);
-#endif /* !defined(CONFIG_SOC_SERIES_STM32H7X) */
+#endif /* !defined(CONFIG_SOC_SERIES_STM32H7X) && !defined(CONFIG_SOC_SERIES_STM32F1X) */
 
 	if (ret) {
 		LOG_ERR("Failed to enable ethernet clock");
@@ -1069,10 +1069,10 @@ static const struct eth_stm32_hal_dev_cfg eth0_config = {
 		      .enr = DT_INST_CLOCKS_CELL_BY_NAME(0, mac_clk_tx, bits)},
 	.pclken_rx = {.bus = DT_INST_CLOCKS_CELL_BY_NAME(0, mac_clk_rx, bus),
 		      .enr = DT_INST_CLOCKS_CELL_BY_NAME(0, mac_clk_rx, bits)},
-#if !defined(CONFIG_SOC_SERIES_STM32H7X)
+#if !defined(CONFIG_SOC_SERIES_STM32H7X) && !defined(CONFIG_SOC_SERIES_STM32F1X)
 	.pclken_ptp = {.bus = DT_INST_CLOCKS_CELL_BY_NAME(0, mac_clk_ptp, bus),
 		       .enr = DT_INST_CLOCKS_CELL_BY_NAME(0, mac_clk_ptp, bits)},
-#endif /* !CONFIG_SOC_SERIES_STM32H7X */
+#endif /* !CONFIG_SOC_SERIES_STM32H7X && !CONFIG_SOC_SERIES_STM32F1X */
 	.pcfg = PINCTRL_DT_INST_DEV_CONFIG_GET(0),
 };
 
