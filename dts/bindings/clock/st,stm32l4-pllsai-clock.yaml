@@ -1,0 +1,63 @@
+# Copyright (c) 2023, Linaro ltd
+# SPDX-License-Identifier: Apache-2.0
+
+description: |
+  STM32L4 PLL SAIx node binding:
+
+  Takes same input as Main PLL. PLLM factor and PLL source are common with Main PLL
+
+  Each PLL can have up to 3 output clocks and for each output clock, the
+  frequency can be computed with the following formulae:
+
+    f(PLLSAIx_P) = f(VCO clock) / PLLSAIxP  --> PLLSAIxCLK
+    f(PLLSAIx_Q) = f(VCO clock) / PLLSAIxQ  --> PLL48M2CLK
+    f(PLLSAIx_R) = f(VCO clock) / PLLSAIxR  --> PLLADCxCLK
+
+      with f(VCO clock) = f(PLL clock input) × (PLLNSAIxN / PLLM)
+
+
+compatible: "st,stm32l4-pllsai-clock"
+
+include: [clock-controller.yaml, base.yaml]
+
+properties:
+  "#clock-cells":
+    const: 0
+
+  mul-n:
+    type: int
+    required: true
+    description: |
+        PLLSAIx multiplication factor for VCO
+        Valid range: 8 - 86
+
+  div-p:
+    type: int
+    required: true
+    description: |
+        PLLSAIx division factor for SAIx Clocks
+    enum:
+      - 7
+      - 17
+
+  div-q:
+    type: int
+    required: false
+    description: |
+        PLLSAIx division factor for 48MHz domain clock
+    enum:
+      - 2
+      - 4
+      - 6
+      - 8
+
+  div-r:
+    type: int
+    required: false
+    description: |
+        PLLSAIx division factor for ADCx clock
+    enum:
+      - 2
+      - 4
+      - 6
+      - 8

@@ -87,6 +87,46 @@ void config_pll_sysclock(void)
 
 #endif /* defined(STM32_PLL_ENABLED) */
 
+#ifdef STM32_PLLSAI1_ENABLED
+
+/**
+ * @brief Set up PLL SAI1 configuration
+ */
+__unused
+void config_pllsai1(void)
+{
+#if defined(STM32_SRC_PLLSAI1_Q) && STM32_PLLSAI1_Q_ENABLED && defined(RCC_PLLSAI1CFGR_PLLSAI1Q)
+	MODIFY_REG(RCC->PLLSAI1CFGR, RCC_PLLSAI1CFGR_PLLSAI1Q, pllsai1q(STM32_PLLSAI1_Q_DIVISOR));
+#endif
+#if defined(STM32_SRC_PLLSAI1_R) && STM32_PLLSAI1_R_ENABLED && defined(RCC_PLLSAI1CFGR_PLLSAI1R)
+	MODIFY_REG(RCC->PLLSAI1CFGR, RCC_PLLSAI1CFGR_PLLSAI1R, pllsai1r(STM32_PLLSAI1_R_DIVISOR));
+#endif
+	LL_RCC_PLLSAI1_ConfigDomain_SAI(get_pll_source(),
+				       pllm(STM32_PLLSAI1_M_DIVISOR),
+				       STM32_PLLSAI1_N_MULTIPLIER,
+				       pllsai1p(STM32_PLLSAI1_P_DIVISOR));
+}
+
+/**
+ * @brief Set up PLL SAI2 configuration
+ */
+__unused
+void config_pllsai2(void)
+{
+#if defined(STM32_SRC_PLLSAI2_Q) && STM32_PLLSAI2_Q_ENABLED && defined(RCC_PLLSAI2CFGR_PLLSAI2Q)
+	MODIFY_REG(RCC->PLLSAI2CFGR, RCC_PLLSAI2CFGR_PLLSAI2Q, pllsai2q(STM32_PLLSAI2_Q_DIVISOR));
+#endif
+#if defined(STM32_SRC_PLLSAI2_R) && STM32_PLLSAI2_R_ENABLED && defined(RCC_PLLSAI2CFGR_PLLSAI2R)
+	MODIFY_REG(RCC->PLLSAI2CFGR, RCC_PLLSAI2CFGR_PLLSAI2R, pllsai2r(STM32_PLLSAI2_R_DIVISOR));
+#endif
+	LL_RCC_PLLSAI2_ConfigDomain_SAI(get_pll_source(),
+				       pllm(STM32_PLLSAI2_M_DIVISOR),
+				       STM32_PLLSAI2_N_MULTIPLIER,
+				       pllsai2p(STM32_PLLSAI2_P_DIVISOR));
+}
+
+#endif /* STM32_PLLI2S_ENABLED */
+
 /**
  * @brief Activate default clocks
  */

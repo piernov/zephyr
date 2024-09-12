@@ -33,6 +33,24 @@
 #define z_plli2s_r(v) LL_RCC_PLLI2SR_DIV_ ## v
 #define plli2sr(v) z_plli2s_r(v)
 
+#define z_pllsai1_p(v) LL_RCC_PLLSAI1P_DIV_ ## v
+#define pllsai1p(v) z_pllsai1_p(v)
+
+#define z_pllsai1_q(v) LL_RCC_PLLSAI1Q_DIV_ ## v
+#define pllsai1q(v) z_pllsai1_q(v)
+
+#define z_pllsai1_r(v) LL_RCC_PLLSAI1R_DIV_ ## v
+#define pllsai1r(v) z_pllsai1_r(v)
+
+#define z_pllsai2_p(v) LL_RCC_PLLSAI2P_DIV_ ## v
+#define pllsai2p(v) z_pllsai2_p(v)
+
+#define z_pllsai2_q(v) LL_RCC_PLLSAI2Q_DIV_ ## v
+#define pllsai2q(v) z_pllsai2_q(v)
+
+#define z_pllsai2_r(v) LL_RCC_PLLSAI2R_DIV_ ## v
+#define pllsai2r(v) z_pllsai2_r(v)
+
 #ifdef __cplusplus
 extern "C" {
 #endif
